@@ -1,4 +1,3 @@
-#include "windows.h"
 #include "game_state.h"
 #include "platform.h"
 #include <stdio.h>
@@ -95,7 +94,7 @@ static void init_game_state(Game_State *state) {
                 .p2 = (V2f32){ x, y},
         };
 
-    state->player.camera.ray_lengths[i] = 0;
+        state->player.camera.ray_lengths[i] = 0;
     }
 
 
@@ -351,7 +350,6 @@ void main_loop(Game_State *state) {
     }
 
     if (state->keyboard_input.space_pressed) {
-        OutputDebugString("Toggle!\n");
         if (state->draw_map) {
             state->draw_map = false;
         } else {
@@ -431,7 +429,7 @@ void main_loop(Game_State *state) {
                 if (map_grid[row][col] == 1) {
 
                     if (state->draw_map) {
-                    draw_rectangle(&state->pixel_buffer, 0x993388, col * tile_width, row  * tile_height, tile_width/2, tile_height/2);
+                        draw_rectangle(&state->pixel_buffer, 0x993388, col * tile_width, row  * tile_height, tile_width/2, tile_height/2);
                     }
 
                     float new_dx =x - state->player.camera.ray_current[i].p1.x ;
@@ -469,26 +467,26 @@ void main_loop(Game_State *state) {
                 draw_circle_lines(&state->pixel_buffer, 0xff00ff, state->player.camera.ray_current[i].p2.x, state->player.camera.ray_current[i].p2.y, 8);
             }
             if (!slope) break;
-         
+
             float x = (y - state->player.camera.ray_current[i].p1.y )/slope  + state->player.camera.ray_current[i].p1.x;
             int col = x /tile_width;
             int row = y /tile_height ;
             if (!up_dir) {row -=1;}
 
-                float new_dx =x -  state->player.camera.ray_current[i].p1.x ;
-                float new_dy = y - state->player.camera.ray_current[i].p1.y;
-                float new_radius = new_dx * new_dx + new_dy * new_dy;
-                if (x_match) {
-                    if (state->draw_map) {
-                        draw_circle_lines(&state->pixel_buffer, 0xff0000, state->player.camera.ray_current[i].p1.x, state->player.camera.ray_current[i].p1.y, 4);
-                        draw_circle_lines(&state->pixel_buffer, 0xff0000, x, y, 4);
-                    }
-                    if (new_radius > x_radius) break;
+            float new_dx =x -  state->player.camera.ray_current[i].p1.x ;
+            float new_dy = y - state->player.camera.ray_current[i].p1.y;
+            float new_radius = new_dx * new_dx + new_dy * new_dy;
+            if (x_match) {
+                if (state->draw_map) {
+                    draw_circle_lines(&state->pixel_buffer, 0xff0000, state->player.camera.ray_current[i].p1.x, state->player.camera.ray_current[i].p1.y, 4);
+                    draw_circle_lines(&state->pixel_buffer, 0xff0000, x, y, 4);
                 }
+                if (new_radius > x_radius) break;
+            }
 
             if (state->draw_map) {
-            draw_rectangle(&state->pixel_buffer, 0x998800, col * tile_width, row  * tile_height, tile_width/2, tile_height/2);
-            draw_circle_lines(&state->pixel_buffer, 0x0000ff, x, y, 4);
+                draw_rectangle(&state->pixel_buffer, 0x998800, col * tile_width, row  * tile_height, tile_width/2, tile_height/2);
+                draw_circle_lines(&state->pixel_buffer, 0x0000ff, x, y, 4);
             }
 
             if (row >= 0 && row < SCREEN_ROWS && col >= 0 && col < SCREEN_COLS) {
@@ -532,7 +530,7 @@ void main_loop(Game_State *state) {
             draw_line_linef32(&state->pixel_buffer,color,  &line);
         }
     }
-    
+
 
 
 
